@@ -5,6 +5,10 @@ import 'firebase/firestore'
 const environment = process.env.VUE_APP_DEVELOPMENT;
 console.log(environment);
 
+var db = {};
+var auth = {};
+var usersCollection = {};
+
 if (environment !== undefined) {
   console.log('Development mode');
   
@@ -20,18 +24,25 @@ if (environment !== undefined) {
 
   // firebase init
   firebase.initializeApp(firebaseConfig)
+
+  // utils
+  db = firebase.firestore()
+  auth = firebase.auth()
+
+  // collection references
+  usersCollection = db.collection('users')
 } else {
   fetch('/__/firebase/init.json').then(async response => {
     firebase.initializeApp(await response.json());
+
+    // utils
+    db = firebase.firestore()
+    auth = firebase.auth()
+
+    // collection references
+    usersCollection = db.collection('users')
   });
 }
-
-// utils
-const db = firebase.firestore()
-const auth = firebase.auth()
-
-// collection references
-const usersCollection = db.collection('users')
 
 // export utils/refs
 export {
