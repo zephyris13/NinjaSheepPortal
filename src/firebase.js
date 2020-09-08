@@ -12,7 +12,14 @@ const firebaseConfig = {
   messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
   appId: process.env.VUE_APP_APP_ID
 }
-firebase.initializeApp(firebaseConfig)
+
+if (firebaseConfig.apiKey === undefined) {
+  fetch('/__/firebase/init.json').then(async response => {
+    firebase.initializeApp(await response.json());
+  });  
+} else {
+  firebase.initializeApp(firebaseConfig)
+}
 
 // utils
 const db = firebase.firestore()
