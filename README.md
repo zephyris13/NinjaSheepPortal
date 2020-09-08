@@ -1,11 +1,11 @@
-> Based on the [tutorial](http://savvyapps.com/blog/definitive-guide-building-web-app-vuejs-firebase) and code from [Github](https://github.com/savvyapps/SAVuegram)
+> Based on the [Savvy tutorial](http://savvyapps.com/blog/definitive-guide-building-web-app-vuejs-firebase) and code from [Savvy Github](https://github.com/savvyapps/SAVuegram)
 
 ``` bash
 # install dependencies
 npm install
 
 # start local server @ localhost:8080
-npm run dev
+npm run serve
 ```
 
 ### License

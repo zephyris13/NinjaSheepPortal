@@ -1,18 +1,21 @@
 <template>
   <div id="login">
     <PasswordReset v-if="showPasswordReset" @close="togglePasswordReset()"></PasswordReset>
+    <div class="logobanner">
+      Ninja Sheep Productions
+    </div>
     <section>
       <div class="col1">
-        <h1>Vuegram</h1>
-        <p>Welcome to the <a href="https://savvyapps.com/" target="_blank">Savvy Apps</a> sample social media web app powered by Vue.js and Firebase.
-          Build this project by checking out The Definitive Guide to Getting Started with Vue.js</p>
+        <a href="#">
+          <img alt="Sign in with Google" src="../assets/img/google.png" width="250" height="50">
+        </a>
       </div>
       <div :class="{ 'signup-form': !showLoginForm }" class="col2">
         <form v-if="showLoginForm" @submit.prevent>
-          <h1>Welcome Back</h1>
+          <h1>Login</h1>
           <div>
             <label for="email1">Email</label>
-            <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1" />
+            <input v-model.trim="loginForm.email" type="text" placeholder="fancy@email.com" id="email1" />
           </div>
           <div>
             <label for="password1">Password</label>
@@ -28,15 +31,11 @@
           <h1>Get Started</h1>
           <div>
             <label for="name">Name</label>
-            <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name" />
-          </div>
-          <div>
-            <label for="title">Title</label>
-            <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
+            <input v-model.trim="signupForm.name" type="text" placeholder="Fancy Name" id="name" />
           </div>
           <div>
             <label for="email2">Email</label>
-            <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
+            <input v-model.trim="signupForm.email" type="text" placeholder="fancy@email.com" id="email2" />
           </div>
           <div>
             <label for="password2">Password</label>
@@ -49,6 +48,20 @@
         </form>
       </div>
     </section>
+    <div class="footer">
+      <section>
+        <div>
+          <a href="https://discord.gg/sTmHTSZ">
+            <img alt="Discord" src="../assets/img/discord.png" width="250" height="70">
+          </a>
+        </div>
+      </section>
+      <section>
+        <div id="copyright">
+          <h4>© {{getCurrYear()}} Ninja Sheep Productions.  All rights reserved.</h4>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -67,7 +80,6 @@ export default {
       },
       signupForm: {
         name: '',
-        title: '',
         email: '',
         password: ''
       },
@@ -93,8 +105,10 @@ export default {
         email: this.signupForm.email,
         password: this.signupForm.password,
         name: this.signupForm.name,
-        title: this.signupForm.title
       })
+    },
+    getCurrYear() {
+      return new Date().getUTCFullYear();
     }
   }
 }
