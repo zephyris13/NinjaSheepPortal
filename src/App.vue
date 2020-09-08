@@ -1,21 +1,24 @@
 <template>
   <div id="app">
     <div class="logobanner">
-      Ninja Sheep Productions
+      <a href="/">
+        <img alt="Ninja Sheep Productions" src="./assets/img/logo2.png" class="logo">
+        <h4 class="logotext">Ninja Sheep Productions</h4>
+      </a>
     </div>
     <SiteNav v-if="showNav"></SiteNav>
     <router-view/>
     <div class="footer">
       <section>
         <div>
-          <a href="https://discord.gg/sTmHTSZ">
+          <a href="https://discord.gg/sTmHTSZ" target="_blank">
             <img alt="Discord" src="./assets/img/discord.png" width="250" height="70">
           </a>
         </div>
       </section>
       <section>
         <div id="copyright">
-          <h4>© {{getCurrYear()}} Ninja Sheep Productions.  All rights reserved.</h4>
+          <h6>© {{getCurrYear()}} Ninja Sheep Productions.  All rights reserved.</h6>
         </div>
       </section>
     </div>
