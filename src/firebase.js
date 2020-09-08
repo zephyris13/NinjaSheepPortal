@@ -33,8 +33,9 @@ if (environment !== undefined) {
   usersCollection = db.collection('users')
 } else {
   fetch('/__/firebase/init.json').then(async response => {
-    firebase.initializeApp(await response.json());
-
+    const firebaseAutoConfig = await response.json();
+    console.log(firebaseAutoConfig);
+    firebase.initializeApp(firebaseAutoConfig);
     // utils
     db = firebase.firestore()
     auth = firebase.auth()
