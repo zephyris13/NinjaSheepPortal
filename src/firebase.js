@@ -2,16 +2,13 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-var firebaseConfig = {};
+const environment = process.env.VUE_APP_DEVELOPMENT;
+console.log(environment);
 
-fetch('/__/firebase/init.json').then(async response => {
-  firebaseConfig = await response.json();
-});  
-
-if (firebaseConfig === undefined || firebaseConfig.apiKey === undefined) {
+if (environment !== undefined) {
   console.log('Development mode');
-
-  firebaseConfig = {
+  
+  const firebaseConfig = {
     apiKey: process.env.VUE_APP_API_KEY,
     authDomain: process.env.VUE_APP_AUTH_DOMAIN,
     databaseURL: process.env.VUE_APP_DATABASE_URL,
@@ -20,12 +17,14 @@ if (firebaseConfig === undefined || firebaseConfig.apiKey === undefined) {
     messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
     appId: process.env.VUE_APP_APP_ID
   }
-} else {
-  console.log('Production mode');
-}
 
-// firebase init
-firebase.initializeApp(firebaseConfig)
+  // firebase init
+  firebase.initializeApp(firebaseConfig)
+} else {
+  fetch('/__/firebase/init.json').then(async response => {
+    firebase.initializeApp(await response.json());
+  });
+}
 
 // utils
 const db = firebase.firestore()
