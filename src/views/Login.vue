@@ -1,11 +1,8 @@
 <template>
   <div id="login">
     <PasswordReset v-if="showPasswordReset" @close="togglePasswordReset()"></PasswordReset>
-    <div class="logobanner">
-      Ninja Sheep Productions
-    </div>
     <section>
-      <div class="col1">
+      <div id="providers" class="col1">
         <a href="#">
           <img alt="Sign in with Google" src="../assets/img/google.png" width="250" height="50">
         </a>
@@ -48,20 +45,6 @@
         </form>
       </div>
     </section>
-    <div class="footer">
-      <section>
-        <div>
-          <a href="https://discord.gg/sTmHTSZ">
-            <img alt="Discord" src="../assets/img/discord.png" width="250" height="70">
-          </a>
-        </div>
-      </section>
-      <section>
-        <div id="copyright">
-          <h4>© {{getCurrYear()}} Ninja Sheep Productions.  All rights reserved.</h4>
-        </div>
-      </section>
-    </div>
   </div>
 </template>
 
@@ -106,9 +89,6 @@ export default {
         password: this.signupForm.password,
         name: this.signupForm.name,
       })
-    },
-    getCurrYear() {
-      return new Date().getUTCFullYear();
     }
   }
 }
