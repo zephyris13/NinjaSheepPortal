@@ -16,21 +16,18 @@ if (process.env.VUE_APP_DEVELOPMENT !== undefined) {
   }
 
   firebase.initializeApp(firebaseConfig)
+} else {
+  fetch('/__/firebase/init.json').then(async response => {
+    firebase.initializeApp(await response.json());
+  });
 }
 
-var db = {};
-var auth = {};
-var usersCollection = {};
+// utils
+const db = firebase.firestore()
+const auth = firebase.auth()
 
-if (firebase.app()) {
-  console.log('Firebase loaded');
-  // utils
-  db = firebase.firestore()
-  auth = firebase.auth()
-
-  // collection references
-  usersCollection = db.collection('users')
-}
+// collection references
+const usersCollection = db.collection('users')
 
 // export utils/refs
 export {
