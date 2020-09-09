@@ -2,14 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-const environment = process.env.VUE_APP_DEVELOPMENT;
-console.log(environment);
-
-var db = {};
-var auth = {};
-var usersCollection = {};
-
-if (environment !== undefined) {
+if (process.env.VUE_APP_DEVELOPMENT !== undefined) {
   console.log('Development mode');
   
   const firebaseConfig = {
@@ -22,32 +15,33 @@ if (environment !== undefined) {
     appId: process.env.VUE_APP_APP_ID
   }
 
-  // firebase init
   firebase.initializeApp(firebaseConfig)
+} else {
+  fetch('/__/firebase/init.json').then(async response => {
+    const firebaseAutoConfig = await response.json();
 
+    firebase.initializeApp(firebaseAutoConfig);
+  });
+}
+
+var db = {};
+var auth = {};
+var usersCollection = {};
+
+if (firebase.app()) {
+  console.log('Firebase loaded');
   // utils
   db = firebase.firestore()
   auth = firebase.auth()
 
   // collection references
   usersCollection = db.collection('users')
-} else {
-  fetch('/__/firebase/init.json').then(async response => {
-    const firebaseAutoConfig = await response.json();
-    console.log(firebaseAutoConfig);
-    firebase.initializeApp(firebaseAutoConfig);
-    // utils
-    db = firebase.firestore()
-    auth = firebase.auth()
-
-    // collection references
-    usersCollection = db.collection('users')
-  });
 }
 
 // export utils/refs
 export {
   db,
   auth,
-  usersCollection
+  usersCollection,
+  firebase
 }
