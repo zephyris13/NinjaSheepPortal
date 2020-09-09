@@ -8,17 +8,6 @@ import './assets/scss/app.scss'
 Vue.config.productionTip = false
 
 let app
-
-function checkFirebase () {
-  console.log('Checking if Firebase has loaded...');
-  if (!firebase.app()) {
-    setInterval(checkFirebase(), 1000);
-  }
-}
-  
-checkFirebase();
-console.log('Firebase loaded!');
-
 auth.onAuthStateChanged(user => {
   if (!app) {
     app = new Vue({
