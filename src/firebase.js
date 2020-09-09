@@ -16,12 +16,6 @@ if (process.env.VUE_APP_DEVELOPMENT !== undefined) {
   }
 
   firebase.initializeApp(firebaseConfig)
-} else {
-  fetch('/__/firebase/init.json').then(async response => {
-    const firebaseAutoConfig = await response.json();
-
-    firebase.initializeApp(firebaseAutoConfig);
-  });
 }
 
 var db = {};
