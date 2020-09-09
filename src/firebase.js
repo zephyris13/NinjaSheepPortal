@@ -2,11 +2,16 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-function checkFirebase() {
-  console.log('Checking if Firebase has loaded...');
-  if (firebase.apps.length === 0) {
-    setTimeout(checkFirebase, 2000);
-  }
+var db = undefined;
+var auth = undefined;
+var usersCollection = undefined;
+
+function initFirebase(firebaseConfig) {
+  firebase.initializeApp(firebaseConfig);
+
+  db = firebase.firestore();
+  auth = firebase.auth();
+  usersCollection = db.collection('users');
 }
 
 if (process.env.VUE_APP_DEVELOPMENT !== undefined) {
@@ -22,30 +27,18 @@ if (process.env.VUE_APP_DEVELOPMENT !== undefined) {
     appId: process.env.VUE_APP_APP_ID
   }
 
-firebase.initializeApp(firebaseConfig)
+  initFirebase(firebaseConfig);
 } else {
   fetch('/__/firebase/init.json').then(async response => {
     const firebaseConfig = await response.json();
-
-    firebase.initializeApp(firebaseConfig);
+    console.log(firebaseConfig);
+    initFirebase(firebaseConfig);
   });
 }
-
-checkFirebase();
-
-// utils
-const db = firebase.firestore()
-const auth = firebase.auth()
-
-console.log('Firebase loaded!');
-
-// collection references
-const usersCollection = db.collection('users')
 
 // export utils/refs
 export {
   db,
   auth,
-  usersCollection,
-  firebase
+  usersCollection
 }
