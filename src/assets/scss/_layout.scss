@@ -65,7 +65,7 @@ header {
     display: flex;
     align-items: center;
     padding-left: 10px;
-    color: orange;
+    color: $fontMain;
   }
 }
 
@@ -194,7 +194,7 @@ header {
     }
 
     .error {
-      color: tomato;
+      color: $error;
       font-size: 12px;
     }
 

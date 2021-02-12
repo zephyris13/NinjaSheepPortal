@@ -26,7 +26,12 @@ const routes = [
     meta: {
       requiresAuth: true
     }
-  }
+  },
+  {
+    path: '/timeline',
+    name: 'Timeline',
+    component: () => import( /* webpackChunkName: "timeline" */ '../views/Timeline.vue')
+  },
 ]
 
 const router = new VueRouter({
