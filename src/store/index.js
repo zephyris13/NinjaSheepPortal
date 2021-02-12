@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebase from 'firebase'
 import * as fb from '../firebase'
 import router from '../router/index'
 
@@ -31,11 +32,32 @@ const store = new Vuex.Store({
 
       // create user object in userCollections
       await fb.usersCollection.doc(user.uid).set({
-        name: form.name
+        name: form.name,
+        email: form.email
       })
 
       // fetch user profile and set in state
       dispatch('fetchUserProfile', user)
+    },
+    async signupGoogle({ dispatch }) {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      var result = await fb.auth.signInWithPopup(provider);
+      console.log(result);
+
+      // var result = await fb.auth.getRedirectResult();
+      // console.log(result);
+      // sign user up
+      // const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+
+      // // create user object in userCollections
+      // await fb.usersCollection.doc(user.uid).set({
+      //   name: form.name,
+      //   email: form.email
+      // })
+
+      // // fetch user profile and set in state
+      // dispatch('fetchUserProfile', user)
+      console.log('Google signup');
     },
     async fetchUserProfile({ commit }, user) {
       // fetch user profile

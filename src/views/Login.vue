@@ -3,7 +3,7 @@
     <PasswordReset v-if="showPasswordReset" @close="togglePasswordReset()"></PasswordReset>
     <section>
       <div id="providers" class="col1">
-        <a href="#">
+        <a @click="signupGoogle()">
           <img alt="Sign in with Google" src="../assets/img/google.png" width="250" height="50">
         </a>
       </div>
@@ -89,7 +89,10 @@ export default {
         password: this.signupForm.password,
         name: this.signupForm.name,
       })
-    }
+    },
+    signupGoogle() {
+      this.$store.dispatch('signupGoogle')
+    },
   }
 }
 </script>
