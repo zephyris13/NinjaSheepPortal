@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <div class="logobanner">
-      <a href="/">
-        <img alt="Ninja Sheep Productions" src="./assets/img/logo2.png" class="logo">
-        <h4 class="logotext">Ninja Sheep Productions</h4>
-      </a>
-    </div>
-    <SiteNav v-if="showNav"></SiteNav>
+    <SiteNav></SiteNav>
     <router-view/>
     <div class="footer">
       <section>

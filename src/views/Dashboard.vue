@@ -9,7 +9,7 @@
           <h4>Email: {{ userProfile.email }}</h4>
           <br />
           <h3>Pioneers</h3>
-          <h4>Display Name: {{ userProfile.pioneers.display }}</h4>
+          <h4>Character Name: {{ userProfile.pioneers.name }}</h4>
           <h4>Faction: {{ userProfile.pioneers.faction }}</h4>
         </div>
       </div>
