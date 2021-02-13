@@ -49,18 +49,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-
-  if (to.path === '/login' && from.path === '/login') {
-    next('/login')
-  } else {
-    next()
-  }
-
-  if (to.path === '/timeline' && from.path === '/timeline') {
-    next('/timeline')
-  } else {
-    next()
-  }
 })
 
 export default router
