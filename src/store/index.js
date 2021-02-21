@@ -21,74 +21,64 @@ const store = new Vuex.Store({
   actions: {
     async login({ dispatch }, form) {
       // sign user in
-      const { user } = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
+      const { user } = await fb.auth.signInWithEmailAndPassword(form.email, form.password);
 
       // fetch user profile and set in state
-      dispatch('fetchUserProfile', user)
+      dispatch('fetchUserProfile', user);
     },
     async signup({ dispatch }, form) {
       // sign user up
-      const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+      const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password);
 
       // create user object in userCollections
       await fb.usersCollection.doc(user.uid).set({
         name: form.name,
         email: form.email
-      })
+      });
 
       // fetch user profile and set in state
-      dispatch('fetchUserProfile', user)
+      dispatch('fetchUserProfile', user);
     },
     async signupGoogle({ dispatch }) {
       var provider = new firebase.auth.GoogleAuthProvider();
-      var result = await fb.auth.signInWithPopup(provider);
-      console.log(result);
+      const { user } = await fb.auth.signInWithPopup(provider);
 
-      // var result = await fb.auth.getRedirectResult();
-      // console.log(result);
-      // sign user up
-      // const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+      console.log(user);
 
-      // // create user object in userCollections
-      // await fb.usersCollection.doc(user.uid).set({
-      //   name: form.name,
-      //   email: form.email
-      // })
-
-      // // fetch user profile and set in state
-      // dispatch('fetchUserProfile', user)
-      console.log('Google signup');
+      // fetch user profile and set in state
+      dispatch('fetchUserProfile', user);
     },
     async fetchUserProfile({ commit }, user) {
       // fetch user profile
-      const userProfile = await fb.usersCollection.doc(user.uid).get()
-
+      const userProfile = await fb.usersCollection.doc(user.uid).get();
+      console.log('User Profile');
+      console.log(userProfile);
       // set user profile in state
-      commit('setUserProfile', userProfile.data())
+      commit('setUserProfile', userProfile.data());
 
       // change route to dashboard
       if (router.currentRoute.path === '/login') {
-        router.push('/')
+        router.push('/');
       }
     },
     async logout({ commit }) {
       // log user out
-      await fb.auth.signOut()
+      await fb.auth.signOut();
 
       // clear user data from state
-      commit('setUserProfile', {})
+      commit('setUserProfile', {});
 
       // redirect to login view
-      router.push('/login')
+      router.push('/login');
     },
     async updateProfile({ dispatch }, user) {
-      const userId = fb.auth.currentUser.uid
+      const userId = fb.auth.currentUser.uid;
       // update user object
       const userRef = await fb.usersCollection.doc(userId).update({
         name: user.name
-      })
+      });
 
-      dispatch('fetchUserProfile', { uid: userId })
+      dispatch('fetchUserProfile', { uid: userId });
     }
   }
 })

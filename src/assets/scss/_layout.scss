@@ -11,6 +11,7 @@
 
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  border-radius: 10px;
 
   color: orange;
 
@@ -182,9 +183,6 @@
 
   .profile {
     padding: 2rem;
-
-    h5 {}
-
     p {
       color: $medium;
       margin-bottom: 1rem;
